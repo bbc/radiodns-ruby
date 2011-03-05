@@ -1,0 +1,18 @@
+PATH
+  remote: .
+  specs:
+    radiodns (0.0.1)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    minitest (2.0.2)
+    mocha (0.9.12)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  minitest
+  mocha
+  radiodns!
