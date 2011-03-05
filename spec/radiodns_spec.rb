@@ -7,7 +7,7 @@ describe "RadioDNS::Resolver" do
   describe "resolve" do
     it "should query radiodns.org" do
       mock_resolver = mock()
-      mock_resolver.expects(:getname).
+      mock_resolver.expects(:getresource).
         with('09580.c586.ce1.fm.radiodns.org', Resolv::DNS::Resource::IN::CNAME).once.
         returns('rdns.musicradio.com')
 
