@@ -5,7 +5,7 @@ module RadioDNS
     def self.resolve(fqdn)
       resolver = Resolv::DNS.new
       cname = resolver.getresource(fqdn, Resolv::DNS::Resource::IN::CNAME)
-      cname.to_s
+      cname.name.to_s
     end
   end
 end
