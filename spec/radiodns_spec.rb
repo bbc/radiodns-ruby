@@ -104,5 +104,37 @@ describe "RadioDNS::Resolver" do
         assert_equal 'pa.scids.sid.eid.ecc.dab.radiodns.org', fqdn
       end
     end
+    describe "for DRM bearer" do
+      it "should construct a fqdn" do
+        params = {
+          :bearer => 'drm',
+          :sid => 'sid',
+        }
+        fqdn = RadioDNS::Resolver.construct_fqdn(params)
+        assert_equal 'sid.drm.radiodns.org', fqdn
+      end
+      it "should raise if sid is missing" do
+        params = {
+          :bearer => 'drm',
+        }
+        assert_raises(ArgumentError) {RadioDNS::Resolver.construct_fqdn(params)}
+      end
+    end
+    describe "for AMSS bearer" do
+      it "should construct a fqdn" do
+        params = {
+          :bearer => 'amss',
+          :sid => 'sid',
+        }
+        fqdn = RadioDNS::Resolver.construct_fqdn(params)
+        assert_equal 'sid.amss.radiodns.org', fqdn
+      end
+      it "should raise if sid is missing" do
+        params = {
+          :bearer => 'amss',
+        }
+        assert_raises(ArgumentError) {RadioDNS::Resolver.construct_fqdn(params)}
+      end
+    end
   end
 end

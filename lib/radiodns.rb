@@ -13,10 +13,16 @@ module RadioDNS
       case bearer
         when "fm" then construct_fqdn_for_fm(params)
         when "dab" then construct_fqdn_for_dab(params)
+        when "drm" then construct_fqdn_for_drm_or_amss(params)
+        when "amss" then construct_fqdn_for_drm_or_amss(params)
       end
     end
 
     private
+    def self.construct_fqdn_for_drm_or_amss(params)
+      raise ArgumentError unless params[:sid]
+      [params[:sid], params[:bearer], 'radiodns.org'].join('.')
+    end
     def self.construct_fqdn_for_dab(params)
       raise ArgumentError unless params[:scids] && params[:sid] && params[:eid] && params[:ecc]
       [params[:appty_uatype] || params[:pa],
