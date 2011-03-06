@@ -136,5 +136,22 @@ describe "RadioDNS::Resolver" do
         assert_raises(ArgumentError) {RadioDNS::Resolver.construct_fqdn(params)}
       end
     end
+    describe "for hd bearer" do
+      it "should construct a fqdn" do
+        params = {
+          :bearer => 'hd',
+          :tx => 'tx',
+          :cc => 'cc',
+        }
+        fqdn = RadioDNS::Resolver.construct_fqdn(params)
+        assert_equal 'tx.cc.hd.radiodns.org', fqdn
+      end
+      it "should raise if tx or cc is missing" do
+        params = {
+          :bearer => 'hd',
+        }
+        assert_raises(ArgumentError) {RadioDNS::Resolver.construct_fqdn(params)}
+      end
+    end
   end
 end

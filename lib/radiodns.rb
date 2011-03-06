@@ -15,10 +15,15 @@ module RadioDNS
         when "dab" then construct_fqdn_for_dab(params)
         when "drm" then construct_fqdn_for_drm_or_amss(params)
         when "amss" then construct_fqdn_for_drm_or_amss(params)
+        when "hd" then construct_fqdn_for_hd(params)
       end
     end
 
     private
+    def self.construct_fqdn_for_hd(params)
+      raise ArgumentError unless params[:tx] && params[:cc]
+      [params[:tx], params[:cc], 'hd.radiodns.org'].join('.')
+    end
     def self.construct_fqdn_for_drm_or_amss(params)
       raise ArgumentError unless params[:sid]
       [params[:sid], params[:bearer], 'radiodns.org'].join('.')
