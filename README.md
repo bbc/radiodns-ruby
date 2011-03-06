@@ -2,7 +2,7 @@
 
 ## Summary
 
-This Ruby Gem provides utilities for working with RadioDNS. It support service CNAME resolution from bearer parameters and application discovery, corresponding to [v0.6.1 of the RadioDNS spec](http://radiodns.org/wp-content/uploads/2009/03/rdns011.pdf).
+This Ruby Gem provides utilities for working with RadioDNS. It supports service CNAME resolution from bearer parameters and application discovery, corresponding to [v0.6.1 of the RadioDNS spec](http://radiodns.org/wp-content/uploads/2009/03/rdns011.pdf).
 
 ## Installation
 
