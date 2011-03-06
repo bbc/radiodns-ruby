@@ -4,9 +4,61 @@ require 'mocha'
 require 'radiodns'
 
 describe "RadioDNS::Service" do
+  before(:each) do
+    @service = RadioDNS::Service.new('rdns.musicradio.com')
+  end
+
   it "has a cname" do
-    service = RadioDNS::Service.new(:cname)
-    assert service.respond_to? :cname
+    assert @service.respond_to? :cname
+  end
+
+  it "looks up radiovis application" do
+    @service.expects(:application).with(:radiovis).returns(nil)
+    @service.radiovis
+  end
+
+  it "looks up radiotag application" do
+    @service.expects(:application).with(:radiotag).returns(nil)
+    @service.radiotag
+  end
+
+  it "looks up radioepg application" do
+    @service.expects(:application).with(:radioepg).returns(nil)
+    @service.radioepg
+  end
+
+  it "has an array of supported applications" do
+    @service.expects(:application).with(:radioepg).returns(:epg)
+    @service.expects(:application).with(:radiovis).returns(:vis)
+    @service.expects(:application).with(:radiotag).returns(:tag)
+    assert_equal [:tag, :epg, :vis], @service.applications
+  end
+
+  it "performs SVR lookups" do
+    mock_resolver = mock()
+    mock_resource = mock()
+    mock_resolver.expects(:getresource).
+      with('_some_application._tcp.rdns.musicradio.com', Resolv::DNS::Resource::IN::SRV).once.
+      returns(mock_resource)
+    mock_resource.expects(:port).returns(1234)
+    Resolv::DNS.expects(:new).returns(mock_resolver)
+
+    application = @service.application(:some_application)
+
+    assert_equal application.host, "_some_application._tcp.rdns.musicradio.com"
+    assert_equal application.port, 1234
+  end
+
+  it "returns nil when lookup fails" do
+    mock_resolver = mock()
+    mock_resource = mock()
+    mock_resolver.expects(:getresource).
+      with('_some_application._tcp.rdns.musicradio.com', Resolv::DNS::Resource::IN::SRV).once.
+      raises(Resolv::ResolvError)
+    Resolv::DNS.expects(:new).returns(mock_resolver)
+
+    application = @service.application(:some_application)
+    assert application.nil?
   end
 end
 

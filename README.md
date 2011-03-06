@@ -34,6 +34,25 @@ the resolve method
 
 The bearers `fm`, `dab`, `drm`, `amss` and `hd` are supported.
 
+Once you have a service you can perform application discovery
+
+    radiovis_application = service.radiovis
+
+    radiovis_application.host #=> "_radiovis._tcp.rdns.musicradio.com"
+    radiovis_application.port #=> 61613
+
+Or to get an array of supported applications
+
+    service.applications
+
+Returns an array of Applications
+
+   [#<RadioDNS::Application @host="_radioepg._tcp.rdns.musicradio.com", @port=61613>,
+    #<RadioDNS::Application @host="_radiovis._tcp.rdns.musicradio.com", @port=61613>]
+
+In the future these may become instances of specific classes that
+implement the application-specific behaviour.
+
 ## TODO
 
  - better error checking of supplied parameters. The code current
@@ -43,5 +62,3 @@ The bearers `fm`, `dab`, `drm`, `amss` and `hd` are supported.
 
  - return an appropriate error if DNS look-up does not resolve to
    CNAME.
-
- - service discovery

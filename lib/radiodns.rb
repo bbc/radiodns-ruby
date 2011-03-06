@@ -6,6 +6,49 @@ module RadioDNS
     def initialize(cname)
       @cname = cname
     end
+
+    def radiovis
+      application(:radiovis)
+    end
+
+    def radioepg
+      application(:radioepg)
+    end
+
+    def radiotag
+      application(:radiotag)
+    end
+
+    def applications
+      applications = []
+      [:radiotag, :radioepg, :radiovis].each do |method_name|
+        application = self.send(method_name)
+        applications << application if application
+      end
+      applications
+    end
+
+    def application(service)
+      resolver = Resolv::DNS.new
+
+      prefix = "_#{service.to_s}._tcp."
+      host = prefix + cname
+      begin
+        resource = resolver.getresource(host,
+                                        Resolv::DNS::Resource::IN::SRV)
+        Application.new :host => host, :port => resource.port
+      rescue Resolv::ResolvError
+        nil
+      end
+    end
+  end
+
+  class Application
+    attr_accessor :host, :port
+    def initialize(params)
+      @host = params[:host]
+      @port = params[:port]
+    end
   end
 
   class Resolver
