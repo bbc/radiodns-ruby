@@ -5,7 +5,7 @@ require 'radiodns'
 
 describe "RadioDNS::Resolver" do
   describe "resolve" do
-    it "should query radiodns.org" do
+    before(:each) do
       mock_resolver = mock()
       mock_cname = mock()
       mock_resolver.expects(:getresource).
@@ -14,8 +14,20 @@ describe "RadioDNS::Resolver" do
       mock_cname.expects(:name).returns('rdns.musicradio.com')
 
       Resolv::DNS.expects(:new).returns(mock_resolver)
-
+    end
+    it "should query radiodns.org" do
       cname = RadioDNS::Resolver.resolve('09580.c586.ce1.fm.radiodns.org')
+      assert_equal 'rdns.musicradio.com', cname
+    end
+
+    it "should accept hash params too" do
+      params = {
+        :freq => '09580',
+        :pi => 'c586',
+        :ecc => 'ce1',
+        :bearer => 'fm'
+      }
+      cname = RadioDNS::Resolver.resolve(params)
       assert_equal 'rdns.musicradio.com', cname
     end
   end
