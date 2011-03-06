@@ -61,5 +61,48 @@ describe "RadioDNS::Resolver" do
         assert_raises(ArgumentError) {RadioDNS::Resolver.construct_fqdn(params)}
       end
     end
+    describe "for DAB bearer" do
+      it "should construct a fqdn" do
+        params = {
+          :bearer => 'dab',
+          :ecc => 'ecc',
+          :eid => 'eid',
+          :sid => 'sid',
+          :scids => 'scids'
+        }
+        fqdn = RadioDNS::Resolver.construct_fqdn(params)
+        assert_equal 'scids.sid.eid.ecc.dab.radiodns.org', fqdn
+      end
+      it "should raise if parameters are missing" do
+        params = {
+          :bearer => 'dab',
+        }
+        assert_raises(ArgumentError) {RadioDNS::Resolver.construct_fqdn(params)}
+      end
+      it "should prepend appty-uatype if provided" do
+        params = {
+          :bearer => 'dab',
+          :ecc => 'ecc',
+          :eid => 'eid',
+          :sid => 'sid',
+          :scids => 'scids',
+          :appty_uatype => 'appty-uatype'
+        }
+        fqdn = RadioDNS::Resolver.construct_fqdn(params)
+        assert_equal 'appty-uatype.scids.sid.eid.ecc.dab.radiodns.org', fqdn
+      end
+      it "should prepend pa if provided" do
+        params = {
+          :bearer => 'dab',
+          :ecc => 'ecc',
+          :eid => 'eid',
+          :sid => 'sid',
+          :scids => 'scids',
+          :pa => 'pa'
+        }
+        fqdn = RadioDNS::Resolver.construct_fqdn(params)
+        assert_equal 'pa.scids.sid.eid.ecc.dab.radiodns.org', fqdn
+      end
+    end
   end
 end
