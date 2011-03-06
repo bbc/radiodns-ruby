@@ -2,7 +2,7 @@
 
 ## Summary
 
-This Ruby Gem provides utilities for working with the RadioDNS spec.
+This Ruby Gem provides utilities for working with RadioDNS.
 
 ## Installation
 
@@ -45,13 +45,14 @@ Or to get an array of supported applications
 
     service.applications
 
-Returns an array of Applications
+which returns
 
     [#<RadioDNS::Application @host="_radioepg._tcp.rdns.musicradio.com", @port=61613>,
      #<RadioDNS::Application @host="_radiovis._tcp.rdns.musicradio.com", @port=61613>]
 
 In the future these may become instances of specific classes that
-implement the application-specific behaviour.
+implement application-specific behaviour, but I might make those
+separate gems.
 
 ## TODO
 
