@@ -3,6 +3,13 @@ require 'minitest/autorun'
 require 'mocha'
 require 'radiodns'
 
+describe "RadioDNS::Service" do
+  it "has a cname" do
+    service = RadioDNS::Service.new(:cname)
+    assert service.respond_to? :cname
+  end
+end
+
 describe "RadioDNS::Resolver" do
   describe "resolve" do
     before(:each) do
@@ -16,8 +23,8 @@ describe "RadioDNS::Resolver" do
       Resolv::DNS.expects(:new).returns(mock_resolver)
     end
     it "should query radiodns.org" do
-      cname = RadioDNS::Resolver.resolve('09580.c586.ce1.fm.radiodns.org')
-      assert_equal 'rdns.musicradio.com', cname
+      service = RadioDNS::Resolver.resolve('09580.c586.ce1.fm.radiodns.org')
+      assert_equal 'rdns.musicradio.com', service.cname
     end
 
     it "should accept hash params too" do
@@ -27,8 +34,8 @@ describe "RadioDNS::Resolver" do
         :ecc => 'ce1',
         :bearer => 'fm'
       }
-      cname = RadioDNS::Resolver.resolve(params)
-      assert_equal 'rdns.musicradio.com', cname
+      service = RadioDNS::Resolver.resolve(params)
+      assert_equal 'rdns.musicradio.com', service.cname
     end
   end
 

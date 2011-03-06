@@ -1,6 +1,13 @@
 require 'resolv'
 
 module RadioDNS
+  class Service
+    attr_accessor :cname
+    def initialize(cname)
+      @cname = cname
+    end
+  end
+
   class Resolver
     def self.resolve(fqdn)
       if fqdn.is_a? Hash
@@ -9,7 +16,7 @@ module RadioDNS
 
       resolver = Resolv::DNS.new
       cname = resolver.getresource(fqdn, Resolv::DNS::Resource::IN::CNAME)
-      cname.name.to_s
+      Service.new(cname.name.to_s)
     end
 
     def self.construct_fqdn(params)
