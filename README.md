@@ -47,8 +47,8 @@ Or to get an array of supported applications
 
 Returns an array of Applications
 
-   [#<RadioDNS::Application @host="_radioepg._tcp.rdns.musicradio.com", @port=61613>,
-    #<RadioDNS::Application @host="_radiovis._tcp.rdns.musicradio.com", @port=61613>]
+    [#<RadioDNS::Application @host="_radioepg._tcp.rdns.musicradio.com", @port=61613>,
+     #<RadioDNS::Application @host="_radiovis._tcp.rdns.musicradio.com", @port=61613>]
 
 In the future these may become instances of specific classes that
 implement the application-specific behaviour.
