@@ -33,3 +33,15 @@ the resolve method
     cname = RadioDNS::Resolver.resolve(params)
 
 The bearers `fm`, `dab`, `drm`, `amss` and `hd` are supported.
+
+## TODO
+
+ - better error checking of supplied parameters. The code current
+   checks for mandatory parameters but not if the parameters
+   themselves conform to the spec (e.g. pa should be between 0 and
+   1023)
+
+ - return an appropriate error if DNS look-up does not resolve to
+   CNAME.
+
+ - service discovery
