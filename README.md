@@ -38,8 +38,9 @@ Once you have a service you can perform application discovery
 
     radiovis_application = service.radiovis
 
-    radiovis_application.host #=> "_radiovis._tcp.rdns.musicradio.com"
+    radiovis_application.host #=> "rdns.musicradio.com"
     radiovis_application.port #=> 61613
+    radiovis_application.type #=> :radiovis
 
 Or to get an array of supported applications
 
@@ -47,8 +48,8 @@ Or to get an array of supported applications
 
 which returns
 
-    [#<RadioDNS::Application @host="_radioepg._tcp.rdns.musicradio.com", @port=61613>,
-     #<RadioDNS::Application @host="_radiovis._tcp.rdns.musicradio.com", @port=61613>]
+    [#<RadioDNS::Application @host="rdns.musicradio.com", @port=61613, @type=:radioepg>,
+     #<RadioDNS::Application @host="rdns.musicradio.com", @port=61613, @type=:radiovis>]
 
 In the future these may become instances of specific classes that
 implement application-specific behaviour, but I might make those

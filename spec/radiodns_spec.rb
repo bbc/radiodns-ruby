@@ -45,8 +45,8 @@ describe "RadioDNS::Service" do
 
     application = @service.application(:some_application)
 
-    assert_equal application.host, "_some_application._tcp.rdns.musicradio.com"
-    assert_equal application.port, 1234
+    assert_equal "rdns.musicradio.com", application.host
+    assert_equal 1234, application.port
   end
 
   it "returns nil when lookup fails" do
