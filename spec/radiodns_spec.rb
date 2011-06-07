@@ -48,18 +48,6 @@ describe "RadioDNS::Service" do
     assert_equal "rdns.musicradio.com", application.host
     assert_equal 1234, application.port
   end
-
-  it "returns nil when lookup fails" do
-    mock_resolver = mock()
-    mock_resource = mock()
-    mock_resolver.expects(:getresource).
-      with('_some_application._tcp.rdns.musicradio.com', Resolv::DNS::Resource::IN::SRV).once.
-      raises(Resolv::ResolvError)
-    Resolv::DNS.expects(:new).returns(mock_resolver)
-
-    application = @service.application(:some_application)
-    assert application.nil?
-  end
 end
 
 describe "RadioDNS::Resolver" do

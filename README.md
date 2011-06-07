@@ -61,6 +61,3 @@ separate gems.
    checks for mandatory parameters but not if the parameters
    themselves conform to the spec (e.g. pa should be between 0 and
    1023)
-
- - return an appropriate error if DNS look-up does not resolve to
-   CNAME.

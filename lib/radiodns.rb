@@ -33,13 +33,8 @@ module RadioDNS
 
       prefix = "_#{service.to_s}._tcp."
       host = prefix + cname
-      begin
-        resource = resolver.getresource(host,
-                                        Resolv::DNS::Resource::IN::SRV)
-        Application.new :host => cname, :port => resource.port, :type => service
-      rescue Resolv::ResolvError
-        nil
-      end
+      resource = resolver.getresource(host, Resolv::DNS::Resource::IN::SRV)
+      Application.new :host => cname, :port => resource.port, :type => service
     end
   end
 
