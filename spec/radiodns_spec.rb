@@ -41,6 +41,7 @@ describe "RadioDNS::Service" do
       with('_some_application._tcp.rdns.musicradio.com', Resolv::DNS::Resource::IN::SRV).once.
       returns(mock_resource)
     mock_resource.expects(:port).returns(1234)
+    mock_resource.expects(:target).returns("rdns.musicradio.com")
     Resolv::DNS.expects(:new).returns(mock_resolver)
 
     application = @service.application(:some_application)
