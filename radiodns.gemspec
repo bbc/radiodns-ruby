@@ -4,7 +4,7 @@ require "radiodns/version"
 
 Gem::Specification.new do |s|
   s.name        = "radiodns"
-  s.version     = Radiodns::VERSION
+  s.version     = RadioDNS::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Chris Lowis"]
   s.email       = ["chris.lowis@gmail.com"]
