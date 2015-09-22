@@ -1,7 +1,6 @@
-gem 'minitest'
-require 'minitest/autorun'
-require 'mocha'
-require 'radiodns'
+$:.unshift(File.dirname(__FILE__))
+
+require 'spec_helper'
 
 describe "RadioDNS::Service" do
   before(:each) do

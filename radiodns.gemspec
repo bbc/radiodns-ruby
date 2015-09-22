@@ -14,8 +14,10 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "radiodns"
 
-  s.add_development_dependency "minitest"
-  s.add_development_dependency "mocha"
+  s.add_development_dependency 'bundler'
+  s.add_development_dependency 'rake'
+  s.add_development_dependency 'minitest', '>= 5.1.0'
+  s.add_development_dependency 'mocha',    '~> 1.1.0'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
