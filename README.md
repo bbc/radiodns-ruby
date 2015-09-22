@@ -1,5 +1,7 @@
 # RadioDNS Ruby Library
 
+[![Gem Version](https://badge.fury.io/rb/radiodns-ruby.png)](http://rubygems.org/gems/radiodns-ruby) [![Build Status](https://travis-ci.org/bbcrd/radiodns-ruby.png?branch=master)](https://travis-ci.org/bbcrd/radiodns-ruby)
+
 ## Summary
 
 This Ruby Gem provides utilities for working with RadioDNS. It supports service CNAME resolution from bearer parameters and application discovery, corresponding to [v0.6.1 of the RadioDNS spec](http://radiodns.org/wp-content/uploads/2009/03/rdns011.pdf).
