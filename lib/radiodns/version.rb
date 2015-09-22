@@ -1,3 +1,3 @@
-module Radiodns
+module RadioDNS
   VERSION = "0.1.3"
 end
