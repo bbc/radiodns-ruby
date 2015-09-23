@@ -8,14 +8,15 @@ describe "RadioDNS::Resolver" do
     before(:each) do
       mock_resolver = mock()
       mock_cname = mock()
-      mock_resolver.expects(:getresource).
-        with('09580.c586.ce1.fm.radiodns.org', Resolv::DNS::Resource::IN::CNAME).once.
-        returns(mock_cname)
+      mock_resolver.expects(:getresource)
+        .with('09580.c586.ce1.fm.radiodns.org', Resolv::DNS::Resource::IN::CNAME)
+        .once
+        .returns(mock_cname)
       mock_cname.expects(:name).returns('rdns.musicradio.com')
 
       Resolv::DNS.expects(:new).returns(mock_resolver)
     end
-    
+
     it "should query radiodns.org" do
       service = RadioDNS::Resolver.resolve('09580.c586.ce1.fm.radiodns.org')
       assert_equal 'rdns.musicradio.com', service.cname
@@ -45,7 +46,7 @@ describe "RadioDNS::Resolver" do
         fqdn = RadioDNS::Resolver.construct_fqdn(params)
         assert_equal '09580.c585.ce1.fm.radiodns.org', fqdn
       end
-      
+
       it "should construct a fqdn when country is supplied" do
         params = {
           :bearer => 'fm',
@@ -56,7 +57,7 @@ describe "RadioDNS::Resolver" do
         fqdn = RadioDNS::Resolver.construct_fqdn(params)
         assert_equal '09580.c585.gb.fm.radiodns.org', fqdn
       end
-      
+
       it "should raise when country and ecc is supplied" do
         params = {
           :bearer => 'fm',
@@ -67,7 +68,7 @@ describe "RadioDNS::Resolver" do
         }
         assert_raises(ArgumentError) {RadioDNS::Resolver.construct_fqdn(params)}
       end
-      
+
       it "should raise when neither country nor ecc is supplied" do
         params = {
           :bearer => 'fm',
@@ -77,7 +78,7 @@ describe "RadioDNS::Resolver" do
         assert_raises(ArgumentError) {RadioDNS::Resolver.construct_fqdn(params)}
       end
     end
-    
+
     describe "for DAB bearer" do
       it "should construct a fqdn" do
         params = {
@@ -90,14 +91,14 @@ describe "RadioDNS::Resolver" do
         fqdn = RadioDNS::Resolver.construct_fqdn(params)
         assert_equal 'scids.sid.eid.ecc.dab.radiodns.org', fqdn
       end
-      
+
       it "should raise if parameters are missing" do
         params = {
           :bearer => 'dab',
         }
         assert_raises(ArgumentError) {RadioDNS::Resolver.construct_fqdn(params)}
       end
-      
+
       it "should prepend appty-uatype if provided" do
         params = {
           :bearer => 'dab',
@@ -110,7 +111,7 @@ describe "RadioDNS::Resolver" do
         fqdn = RadioDNS::Resolver.construct_fqdn(params)
         assert_equal 'appty-uatype.scids.sid.eid.ecc.dab.radiodns.org', fqdn
       end
-      
+
       it "should prepend pa if provided" do
         params = {
           :bearer => 'dab',
@@ -124,7 +125,7 @@ describe "RadioDNS::Resolver" do
         assert_equal 'pa.scids.sid.eid.ecc.dab.radiodns.org', fqdn
       end
     end
-    
+
     describe "for DRM bearer" do
       it "should construct a fqdn" do
         params = {
@@ -141,7 +142,7 @@ describe "RadioDNS::Resolver" do
         assert_raises(ArgumentError) {RadioDNS::Resolver.construct_fqdn(params)}
       end
     end
-    
+
     describe "for AMSS bearer" do
       it "should construct a fqdn" do
         params = {
@@ -158,7 +159,7 @@ describe "RadioDNS::Resolver" do
         assert_raises(ArgumentError) {RadioDNS::Resolver.construct_fqdn(params)}
       end
     end
-    
+
     describe "for hd bearer" do
       it "should construct a fqdn" do
         params = {
@@ -176,12 +177,12 @@ describe "RadioDNS::Resolver" do
         assert_raises(ArgumentError) {RadioDNS::Resolver.construct_fqdn(params)}
       end
     end
-    
+
     describe "with alternate root domain" do
       before(:each) do
         RadioDNS::Resolver.root_domain = 'test.radiodns.org'
       end
-      
+
       after(:each) do
         RadioDNS::Resolver.root_domain = 'radiodns.org'
       end

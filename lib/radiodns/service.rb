@@ -30,11 +30,17 @@ class RadioDNS::Service
 
     prefix = "_#{type}._tcp."
     host = prefix + cname
-    resource = resolver.getresource(host, Resolv::DNS::Resource::IN::SRV)
-    RadioDNS::Application.new(
-      :host => resource.target.to_s,
-      :port => resource.port,
-      :type => type
-    )
+
+    begin
+      resource = resolver.getresource(host, Resolv::DNS::Resource::IN::SRV)
+      RadioDNS::Application.new(
+        :host => resource.target.to_s,
+        :port => resource.port,
+        :type => type
+      )
+    rescue Resolv::ResolvError
+      # Service not found
+      nil
+    end
   end
 end

@@ -37,9 +37,10 @@ describe "RadioDNS::Service" do
   it "performs SVR lookups" do
     mock_resolver = mock()
     mock_resource = mock()
-    mock_resolver.expects(:getresource).
-      with('_some_application._tcp.rdns.musicradio.com', Resolv::DNS::Resource::IN::SRV).once.
-      returns(mock_resource)
+    mock_resolver.expects(:getresource)
+      .with('_some_application._tcp.rdns.musicradio.com', Resolv::DNS::Resource::IN::SRV)
+      .once
+      .returns(mock_resource)
     mock_resource.expects(:port).returns(1234)
     mock_resource.expects(:target).returns("rdns.musicradio.com")
     Resolv::DNS.expects(:new).returns(mock_resolver)
@@ -48,5 +49,35 @@ describe "RadioDNS::Service" do
 
     assert_equal "rdns.musicradio.com", application.host
     assert_equal 1234, application.port
+  end
+
+  it "performs SRV lookups" do
+    mock_resolver = mock()
+    mock_resource = mock()
+    mock_resolver.expects(:getresource)
+      .with('_some_application._tcp.rdns.musicradio.com', Resolv::DNS::Resource::IN::SRV)
+      .once
+      .returns(mock_resource)
+    mock_resource.expects(:port).returns(1234)
+    mock_resource.expects(:target).returns("rdns.musicradio.com")
+    Resolv::DNS.expects(:new).returns(mock_resolver)
+
+    application = @service.application(:some_application)
+
+    assert_equal "rdns.musicradio.com", application.host
+    assert_equal 1234, application.port
+  end
+
+  it "returns nil if an SRV record is not present" do
+    mock_resolver = mock()
+
+    mock_resolver.expects(:getresource)
+      .with('_unknown_application._tcp.rdns.musicradio.com', Resolv::DNS::Resource::IN::SRV)
+      .once
+      .raises(Resolv::ResolvError)
+    Resolv::DNS.expects(:new).returns(mock_resolver)
+
+    application = @service.application(:unknown_application)
+    assert_equal nil, application
   end
 end
