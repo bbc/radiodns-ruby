@@ -176,5 +176,29 @@ describe "RadioDNS::Resolver" do
         assert_raises(ArgumentError) {RadioDNS::Resolver.construct_fqdn(params)}
       end
     end
+    
+    describe "with alternate root domain" do
+      before(:each) do
+        RadioDNS::Resolver.root_domain = 'test.radiodns.org'
+      end
+      
+      after(:each) do
+        RadioDNS::Resolver.root_domain = 'radiodns.org'
+      end
+
+      describe "for FM/VHF bearer" do
+        it "should construct a fqdn when ecc is supplied" do
+          params = {
+            :bearer => 'fm',
+            :ecc => 'ce1',
+            :pi => 'c585',
+            :freq => '09580'
+          }
+          fqdn = RadioDNS::Resolver.construct_fqdn(params)
+          assert_equal '09580.c585.ce1.fm.test.radiodns.org', fqdn
+        end
+      end
+    end
+
   end
 end
