@@ -52,11 +52,20 @@ class RadioDNS::Resolver
     def construct_fqdn_for_fm(params)
       raise ArgumentError if params[:ecc] && params[:country]
       raise ArgumentError if params[:ecc].nil? && params[:country].nil?
-      [params[:freq],
-       params[:pi],
-       params[:ecc] || params[:country],
-       'fm',
-       root_domain].join('.')
+      [
+        case params[:freq]
+          when String
+            params[:freq]
+          when Float
+            sprintf("%05d", params[:freq] * 100)
+          else
+            raise ArgumentError
+        end,
+        params[:pi],
+        params[:ecc] || params[:country],
+        'fm',
+        root_domain
+      ].join('.')
     end
   end
 end
