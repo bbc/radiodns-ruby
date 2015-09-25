@@ -36,6 +36,17 @@ describe "RadioDNS::Resolver" do
 
   describe "construct_fqdn" do
     describe "for FM/VHF bearer" do
+      it "should construct a fqdn when freq is supplied as a Float" do
+        params = {
+          :bearer => 'fm',
+          :ecc => 'ce1',
+          :pi => 'c585',
+          :freq => 95.8
+        }
+        fqdn = RadioDNS::Resolver.construct_fqdn(params)
+        assert_equal '09580.c585.ce1.fm.radiodns.org', fqdn
+      end
+
       it "should construct a fqdn when ecc is supplied" do
         params = {
           :bearer => 'fm',
