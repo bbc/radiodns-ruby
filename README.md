@@ -1,6 +1,6 @@
 # RadioDNS Ruby Library
 
-[![Gem Version](https://badge.fury.io/rb/radiodns.svg)](http://rubygems.org/gems/radiodns) [![Build Status](https://travis-ci.org/bbcrd/radiodns-ruby.svg?branch=master)](https://travis-ci.org/bbcrd/radiodns-ruby)
+[![Gem Version](https://badge.fury.io/rb/radiodns.svg)](http://rubygems.org/gems/radiodns) [![Build Status](https://travis-ci.org/bbc/radiodns-ruby.svg?branch=master)](https://travis-ci.org/bbc/radiodns-ruby)
 
 ## Summary
 

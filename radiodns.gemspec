@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["BBC Research and Development"]
   s.email       = ["irfs@bbc.co.uk"]
-  s.homepage    = "http://github.com/bbcrd/radiodns-ruby"
+  s.homepage    = "http://github.com/bbc/radiodns-ruby"
   s.summary     = %q{Perform RadioDNS resolutions and service lookups}
   s.description = %q{Perform RadioDNS resolutions and service lookups}
 
